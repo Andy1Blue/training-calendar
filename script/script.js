@@ -33,49 +33,49 @@ window.onload = function () {
     // }
 
     for (let i = 1; i <= daysInMonth(1, actualYear); i++) {
-        addRect(".m1", i, "01", actualYear);
+        addRect(".m1", String("00" + i).slice(-2), "01", actualYear);
     }
 
     for (let i = 1; i <= daysInMonth(2, actualYear); i++) {
-        addRect(".m2", i, "02", actualYear);
+        addRect(".m2", String("00" + i).slice(-2), "02", actualYear);
     }
 
     for (let i = 1; i <= daysInMonth(3, actualYear); i++) {
-        addRect(".m3", i, "03", actualYear);
+        addRect(".m3", String("00" + i).slice(-2), "03", actualYear);
     }
 
     for (let i = 1; i <= daysInMonth(4, actualYear); i++) {
-        addRect(".m4", i, "04", actualYear);
+        addRect(".m4", String("00" + i).slice(-2), "04", actualYear);
     }
 
     for (let i = 1; i <= daysInMonth(5, actualYear); i++) {
-        addRect(".m5", i, "05", actualYear);
+        addRect(".m5", String("00" + i).slice(-2), "05", actualYear);
     }
 
     for (let i = 1; i <= daysInMonth(6, actualYear); i++) {
-        addRect(".m6", i, "06", actualYear);
+        addRect(".m6", String("00" + i).slice(-2), "06", actualYear);
     }
     for (let i = 1; i <= daysInMonth(7, actualYear); i++) {
-        addRect(".m7", i, "07", actualYear);
+        addRect(".m7", String("00" + i).slice(-2), "07", actualYear);
     }
 
     for (let i = 1; i <= daysInMonth(8, actualYear); i++) {
-        addRect(".m8", i, "08", actualYear);
+        addRect(".m8", String("00" + i).slice(-2), "08", actualYear);
     }
 
     for (let i = 1; i <= daysInMonth(9, actualYear); i++) {
-        addRect(".m9", i, "09", actualYear);
+        addRect(".m9", String("00" + i).slice(-2), "09", actualYear);
     }
 
     for (let i = 1; i <= daysInMonth(10, actualYear); i++) {
-        addRect(".m10", i, "10", actualYear);
+        addRect(".m10", String("00" + i).slice(-2), "10", actualYear);
     }
 
     for (let i = 1; i <= daysInMonth(11, actualYear); i++) {
-        addRect(".m11", i, "11", actualYear);
+        addRect(".m11", String("00" + i).slice(-2), "11", actualYear);
     }
 
     for (let i = 1; i <= daysInMonth(12, actualYear); i++) {
-        addRect(".m12", i, "12", actualYear);
+        addRect(".m12", String("00" + i).slice(-2), "12", actualYear);
     }
 };
