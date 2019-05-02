@@ -5,29 +5,57 @@ import { config } from '../../frontendConfig';
 
 class GoogleLogin extends Component {
     state = {
-        user: null, processing: false
+        givenName: null, gId: null, gImg: null, processing: false
+    }
+
+    componentDidMount() {
+        if(localStorage.getItem('TCgId') !== null) {
+            console.log("You are logged as " + localStorage.getItem('TCgivenName'));
+
+            this.setState({
+                givenName: localStorage.getItem('TCgivenName'),
+                gId: localStorage.getItem('TCgId'),
+                gImg: localStorage.getItem('TCgImg')
+            });
+        }
     }
 
     render() {
-        const { user } = this.state;
+        const { givenName, gId, gImg } = this.state;
 
         const responseGoogle = (response) => {
             if (response !== null) {
                 console.log(response);
-                this.setState({ user: response, processing: true });
+                this.setState({
+                    givenName: response.profileObj.givenName,
+                    gId: response.profileObj.googleId,
+                    gImg: response.profileObj.imageUrl
+                });
+                localStorage.setItem('TCgivenName', response.profileObj.givenName);
+                localStorage.setItem('TCgId', response.profileObj.googleId);
+                localStorage.setItem('TCgImg', response.profileObj.imageUrl);
             }
         }
 
         const logout = () => {
-            if (user !== null) {
-                this.setState({ user: null });
+            if (gId !== null) {
+                this.setState({
+                    givenName: null,
+                    gId: null,
+                    gImg: null
+                });
+
+                localStorage.removeItem('TCgivenName');
+                localStorage.removeItem('TCgId');
+                localStorage.removeItem('TCgImg');
             }
         }
 
         return (
             <div>
-                {user !== null
-                    ? <div>Hello {user.profileObj.givenName}! <button onClick={logout}>Logout</button></div>
+                {gId !== null
+                    ? <div>Hello {givenName} <img src={gImg} alt="Google Avatar" width="30px" hight="30px" />!
+                    <br/><button onClick={logout}>Logout</button></div>
                     : <GoogleAuth
                         clientId={config.google}
                         buttonText="Login with Google"
