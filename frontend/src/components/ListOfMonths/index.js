@@ -5,7 +5,8 @@ import Loader from '../Loader';
 class ListOfMonths extends Component {
     state = {
         isFetching: true,
-        isWorkoutDate: []
+        isWorkoutDate: [],
+        TCgId: null
     }
 
     daysInMonth = (month, year) => {
@@ -13,6 +14,7 @@ class ListOfMonths extends Component {
     };
 
     addRect = (selector, day, month, year) => {
+        if(this.state.isWorkoutDate.length > 0) {
         var elem = document.createElement("rect");
 
         for (var i = 0; i < this.state.isWorkoutDate.length; i++) {
@@ -27,15 +29,19 @@ class ListOfMonths extends Component {
 
         const m = document.getElementById("root").querySelector(".App .App-matches .container ." + selector);
         m.appendChild(elem);
+    }
     };
 
     componentWillMount() {
+        if(localStorage.getItem('TCgId') !== null) {
+            const TCgId = localStorage.getItem('TCgId');
+
         fetch('http://localhost:3322/training',
             {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "userId": 1
+                    "userId": TCgId
                 }
             })
             .then(response => response.json())
@@ -47,6 +53,9 @@ class ListOfMonths extends Component {
                 console.log(isWorkoutDate);
                 this.setState({ isWorkoutDate, isFetching: false });
             });
+        } else {
+            this.setState({ isWorkoutDate: [], isFetching: false })
+        }
     }
 
     componentDidUpdate() {
@@ -102,13 +111,13 @@ class ListOfMonths extends Component {
     }
 
     render() {
-        const { isFetching } = this.state;
+        const { isFetching, isWorkoutDate } = this.state;
         return (
             <div className="App-matches">
 
                 {isFetching && <div><Loader /></div>}
 
-                {!isFetching &&
+                {!isFetching && isWorkoutDate.length > 0 &&
                     <div className="container">
                         <div className="row">
                             <div className="traning-table-content">
