@@ -1,0 +1,70 @@
+body {
+    font-family: sans-serif;
+    background-color: gray;
+}
+
+.container {
+    margin: 100px;
+}
+
+.m {
+    margin: 10px;
+}
+
+.m div {
+    background-color: #fff;
+    height: 15px;
+    width: 15px;
+    float: left;
+    margin: 3px;
+    text-align: center;
+    font-size: 10px;
+    color: #000;
+    border: 1px solid #000,
+}
+
+rect:hover:after {
+    content: attr(comment);
+    position: absolute;
+    width: 150px;
+    margin: 20px;
+    padding: 2px;
+    font-size: 10px;
+    border: 1px solid black;
+    background: white;
+    color: black;
+}
+
+.m1 rect,
+.m2 rect,
+.m3 rect,
+.m4 rect,
+.m5 rect,
+.m6 rect,
+.m7 rect,
+.m8 rect,
+.m9 rect,
+.m10 rect,
+.m11 rect,
+.m12 rect {
+    background-color: rgb(202, 206, 247);
+    height: 15px;
+    width: 15px;
+    margin: 3px;
+    float: left;
+}
+
+.m1,
+.m2,
+.m3,
+.m4,
+.m5,
+.m6,
+.m7,
+.m8,
+.m9,
+.m10,
+.m11,
+.m12 {
+    margin: 10px;
+}
