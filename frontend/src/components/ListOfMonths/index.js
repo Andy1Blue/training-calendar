@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './style.css';
+import Loader from '../Loader';
 
 class ListOfMonths extends Component {
     state = {
@@ -105,7 +106,7 @@ class ListOfMonths extends Component {
         return (
             <div className="App-matches">
 
-                {isFetching && <div>Loading...</div>}
+                {isFetching && <div><Loader /></div>}
 
                 <div className="container">
                     {!isFetching &&
