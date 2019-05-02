@@ -108,24 +108,28 @@ class ListOfMonths extends Component {
 
                 {isFetching && <div><Loader /></div>}
 
-                <div className="container">
-                    {!isFetching &&
-                        <div>
-                            <div className="m1"></div><br />
-                            <div className="m2"></div><br />
-                            <div className="m3"></div><br />
-                            <div className="m4"></div><br />
-                            <div className="m5"></div><br />
-                            <div className="m6"></div><br />
-                            <div className="m7"></div><br />
-                            <div className="m8"></div><br />
-                            <div className="m9"></div><br />
-                            <div className="m10"></div><br />
-                            <div className="m11"></div><br />
-                            <div className="m12"></div>
+                {!isFetching &&
+                    <div class="container">
+                        <div class="row">
+                            <div class="traning-table-content">
+                                <div class="col">
+                                    <div className="m1"></div><br />
+                                    <div className="m2"></div><br />
+                                    <div className="m3"></div><br />
+                                    <div className="m4"></div><br />
+                                    <div className="m5"></div><br />
+                                    <div className="m6"></div><br />
+                                    <div className="m7"></div><br />
+                                    <div className="m8"></div><br />
+                                    <div className="m9"></div><br />
+                                    <div className="m10"></div><br />
+                                    <div className="m11"></div><br />
+                                    <div className="m12"></div>
+                                </div>
+                            </div>
                         </div>
-                    }
-                </div>
+                    </div>
+                }
             </div>
         )
     }
