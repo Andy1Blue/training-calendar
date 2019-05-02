@@ -3,12 +3,9 @@ body {
     background-color: gray;
 }
 
-.container {
-    margin: 100px;
-}
-
-.m {
-    margin: 10px;
+.traning-table-content {
+    padding: 8rem 0;
+    margin: 0 auto;
 }
 
 .m div {
@@ -16,7 +13,6 @@ body {
     height: 15px;
     width: 15px;
     float: left;
-    margin: 3px;
     text-align: center;
     font-size: 10px;
     color: #000;
@@ -66,5 +62,5 @@ rect:hover:after {
 .m10,
 .m11,
 .m12 {
-    margin: 10px;
+    margin: 3px;
 }
