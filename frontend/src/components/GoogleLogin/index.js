@@ -35,6 +35,8 @@ class GoogleLogin extends Component {
                 localStorage.setItem('TCgId', response.profileObj.googleId);
                 localStorage.setItem('TCgImg', response.profileObj.imageUrl);
             }
+
+            window.location.href = "/";
         }
 
         const logout = () => {
@@ -49,12 +51,15 @@ class GoogleLogin extends Component {
                 localStorage.removeItem('TCgId');
                 localStorage.removeItem('TCgImg');
             }
+
+            window.location.href = "/";
         }
 
         return (
             <div>
                 {gId !== null
                     ? <div>Hello {givenName} <img src={gImg} alt="Google Avatar" width="30px" hight="30px" />!
+                    <br/><a href="#calendar">Show training calendar</a>
                     <br/><button onClick={logout}>Logout</button></div>
                     : <GoogleAuth
                         clientId={config.google}

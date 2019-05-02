@@ -118,7 +118,7 @@ class ListOfMonths extends Component {
                 {isFetching && <div><Loader /></div>}
 
                 {!isFetching && isWorkoutDate.length > 0 &&
-                    <div className="container">
+                    <div className="container" id="calendar">
                         <div className="row">
                             <div className="traning-table-content">
                                 <div className="col">
