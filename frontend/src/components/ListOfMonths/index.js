@@ -109,10 +109,10 @@ class ListOfMonths extends Component {
                 {isFetching && <div><Loader /></div>}
 
                 {!isFetching &&
-                    <div class="container">
-                        <div class="row">
-                            <div class="traning-table-content">
-                                <div class="col">
+                    <div className="container">
+                        <div className="row">
+                            <div className="traning-table-content">
+                                <div className="col">
                                     <div className="m1"></div><br />
                                     <div className="m2"></div><br />
                                     <div className="m3"></div><br />
