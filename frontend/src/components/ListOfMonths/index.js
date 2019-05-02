@@ -13,7 +13,22 @@ class ListOfMonths extends Component {
     addRect = (selector, day, month, year) => {
         var elem = document.createElement("rect");
 
-        var isWorkoutDate = ['01012019','11052019','04122019','01112019','21092019'];
+        fetch('http://localhost:3322/training',
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "userId": 1
+                }
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log(JSON.stringify(myJson));
+            });
+
+        var isWorkoutDate = ['01012019', '11052019', '04122019', '01112019', '21092019'];
         for (var i = 0; i < isWorkoutDate.length; i++) {
             console.log(day + "" + month + "" + year + " ===== " + isWorkoutDate[i]);
             if (day + "" + month + "" + year === isWorkoutDate[i]) {
@@ -86,22 +101,25 @@ class ListOfMonths extends Component {
             <div className="App-matches">
 
                 {isFetching && <div>Loading...</div>}
-                {!isFetching &&
-                    <div className="container">
-                        <div className="m1"></div><br />
-                        <div className="m2"></div><br />
-                        <div className="m3"></div><br />
-                        <div className="m4"></div><br />
-                        <div className="m5"></div><br />
-                        <div className="m6"></div><br />
-                        <div className="m7"></div><br />
-                        <div className="m8"></div><br />
-                        <div className="m9"></div><br />
-                        <div className="m10"></div><br />
-                        <div className="m11"></div><br />
-                        <div className="m12"></div>
-                    </div>
-                }
+
+                <div className="container">
+                    {!isFetching &&
+                        <div>
+                            <div className="m1"></div><br />
+                            <div className="m2"></div><br />
+                            <div className="m3"></div><br />
+                            <div className="m4"></div><br />
+                            <div className="m5"></div><br />
+                            <div className="m6"></div><br />
+                            <div className="m7"></div><br />
+                            <div className="m8"></div><br />
+                            <div className="m9"></div><br />
+                            <div className="m10"></div><br />
+                            <div className="m11"></div><br />
+                            <div className="m12"></div>
+                        </div>
+                    }
+                </div>
             </div>
         )
     }
