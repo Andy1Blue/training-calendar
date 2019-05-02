@@ -122,17 +122,17 @@ class ListOfMonths extends Component {
                         <div className="row">
                             <div className="traning-table-content">
                                 <div className="col">
-                                    <div className="m1"></div><br />
-                                    <div className="m2"></div><br />
-                                    <div className="m3"></div><br />
-                                    <div className="m4"></div><br />
-                                    <div className="m5"></div><br />
-                                    <div className="m6"></div><br />
-                                    <div className="m7"></div><br />
-                                    <div className="m8"></div><br />
-                                    <div className="m9"></div><br />
-                                    <div className="m10"></div><br />
-                                    <div className="m11"></div><br />
+                                    <div className="m1"></div>
+                                    <div className="m2"></div>
+                                    <div className="m3"></div>
+                                    <div className="m4"></div>
+                                    <div className="m5"></div>
+                                    <div className="m6"></div>
+                                    <div className="m7"></div>
+                                    <div className="m8"></div>
+                                    <div className="m9"></div>
+                                    <div className="m10"></div>
+                                    <div className="m11"></div>
                                     <div className="m12"></div>
                                 </div>
                             </div>

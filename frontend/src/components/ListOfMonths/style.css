@@ -8,18 +8,8 @@ body {
     margin: 0 auto;
 }
 
-.m div {
-    background-color: #fff;
-    height: 15px;
-    width: 15px;
-    float: left;
-    text-align: center;
-    font-size: 10px;
-    color: #000;
-    border: 1px solid #000,
-}
-
 rect:hover:after {
+    z-index: 999;
     content: attr(comment);
     position: absolute;
     width: 150px;
@@ -50,6 +40,32 @@ rect:hover:after {
     float: left;
 }
 
+@media only screen and (max-width: 770px) {
+    .m1 rect,
+    .m2 rect,
+    .m3 rect,
+    .m4 rect,
+    .m5 rect,
+    .m6 rect,
+    .m7 rect,
+    .m8 rect,
+    .m9 rect,
+    .m10 rect,
+    .m11 rect,
+    .m12 rect {
+        background-color: rgb(202, 206, 247);
+        height: 6px;
+        width: 6px;
+        margin: 2px;
+        float: left;
+    }
+
+    .traning-table-content {
+        padding: 4rem 0;
+        margin: 0 auto;
+    }
+}
+
 .m1,
 .m2,
 .m3,
@@ -63,4 +79,6 @@ rect:hover:after {
 .m11,
 .m12 {
     margin: 3px;
+    display: table;
+    position: relative;
 }
