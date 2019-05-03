@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import './style.css';
 import GoogleAuth from 'react-google-login';
-import { config } from '../../frontendConfig';
+import { config } from '../../components/Config';
 
 class GoogleLogin extends Component {
     state = {
