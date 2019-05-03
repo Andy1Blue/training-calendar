@@ -1,3 +1,10 @@
+/*
+ *
+ * Component for creating list of months
+ *
+ */
+
+// Imports
 import React, { Component } from 'react';
 import './style.css';
 import Loader from '../Loader';
@@ -9,57 +16,67 @@ class ListOfMonths extends Component {
         TCgId: null
     }
 
+    // Calculate days in a month
     daysInMonth = (month, year) => {
         return new Date(year, month, 0).getDate();
     };
 
+    // Adding day rectangle
     addRect = (selector, day, month, year) => {
-        if(this.state.isWorkoutDate.length > 0) {
-        var elem = document.createElement("rect");
+        if (this.state.isWorkoutDate.length > 0) {
+            var elem = document.createElement("rect");
 
-        for (var i = 0; i < this.state.isWorkoutDate.length; i++) {
-            if (day + "" + month + "" + year === this.state.isWorkoutDate[i]) {
-                elem.setAttribute("style", "background-color: green;");
-                elem.setAttribute("comment", day + "." + month + "." + year + " - workout!");
-            } else {
-                elem.setAttribute("id", day + "." + month + "." + year);
-                elem.setAttribute("comment", day + "." + month + "." + year + " - no workout");
+            // Iterating fetched data from the database
+            for (var i = 0; i < this.state.isWorkoutDate.length; i++) {
+                if (day + "" + month + "" + year === this.state.isWorkoutDate[i]) {
+                    elem.setAttribute("style", "background-color: green;");
+                    // TODO: Add the possibility of adding comment the user
+                    elem.setAttribute("comment", day + "." + month + "." + year + " - workout!");
+                } else {
+                    elem.setAttribute("id", day + "." + month + "." + year);
+                    // TODO: Add the possibility of adding comment the user
+                    elem.setAttribute("comment", day + "." + month + "." + year + " - no workout");
+                }
             }
-        }
 
-        const m = document.getElementById("root").querySelector(".App .App-matches .container ." + selector);
-        m.appendChild(elem);
-    }
+            // Adding an element for the selected selector
+            const m = document.getElementById("root").querySelector(".App .App-matches .container ." + selector);
+            m.appendChild(elem);
+        }
     };
 
     componentWillMount() {
-        if(localStorage.getItem('TCgId') !== null) {
+        // If local storage is not null, fetch data from DB by userid
+        if (localStorage.getItem('TCgId') !== null) {
             const TCgId = localStorage.getItem('TCgId');
 
-        fetch('http://localhost:3322/training',
-            {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "userId": TCgId
-                }
-            })
-            .then(response => response.json())
-            .then(response => {
-                let isWorkoutDate = [];
-                for (let i = 0; i < response.length; i++) {
-                    isWorkoutDate.push(response[i].training_date);
-                }
-                console.log(isWorkoutDate);
-                this.setState({ isWorkoutDate, isFetching: false });
-            });
+            fetch('http://localhost:3322/training',
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "userid": TCgId
+                    }
+                })
+                .then(response => response.json())
+                .then(response => {
+                    let isWorkoutDate = [];
+                    for (let i = 0; i < response.length; i++) {
+                        isWorkoutDate.push(response[i].training_date);
+                    }
+                    console.log(isWorkoutDate);
+                    this.setState({ isWorkoutDate, isFetching: false });
+                });
         } else {
+            // If is null return empty data
             this.setState({ isWorkoutDate: [], isFetching: false })
         }
     }
 
     componentDidUpdate() {
+        // TODO: Add the possibility of selecting the year by the user
         let actualYear = 2019;
+        // If isWorkoutDate have more than 0 elements, create days rectangles
         if (this.state.isWorkoutDate.length > 0) {
             for (let i = 1; i <= this.daysInMonth(1, actualYear); i++) {
                 this.addRect("m1", String("00" + i).slice(-2), "01", actualYear);
