@@ -5,5 +5,5 @@
  */
 
 export const config = {
-    "google": "844859529490-s7nf0d2ijncdn4b7v58r7i01n2m19mgo.apps.googleusercontent.com"
+    "google": "844859529490-6tjltsnfnffsqdu16l7sm7jb3rhl9l8l.apps.googleusercontent.com"
 }
