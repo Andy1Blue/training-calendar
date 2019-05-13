@@ -32,7 +32,7 @@ class GoogleLogin extends Component {
         const { givenName, gId, gImg } = this.state;
 
         const responseGoogle = (response) => {
-            // If response from Google API is not null, create local storage with 
+            // If response from Google API is not null, create local storage with
             // name, Google ID and avatar (in local sotrage and in state)
             if (response !== null) {
                 console.log(response);

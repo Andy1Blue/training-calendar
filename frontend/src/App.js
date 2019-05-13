@@ -16,9 +16,7 @@ function App() {
           </div>
         </div>
       </header>
-
       <ListOfMonths />
-
     </div>
   );
 }
