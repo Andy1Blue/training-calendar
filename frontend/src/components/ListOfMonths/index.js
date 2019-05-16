@@ -16,6 +16,12 @@ class ListOfMonths extends Component {
         TCgId: null
     }
 
+    showDay(e) {
+        if(e.target.attributes.getNamedItem('id') !== null) {
+            console.log("Clicked" + e.target.attributes.getNamedItem('id').value);
+        }
+    }
+
     // Calculate days in a month
     daysInMonth = (month, year) => {
         return new Date(year, month, 0).getDate();
@@ -137,7 +143,7 @@ class ListOfMonths extends Component {
                 {!isFetching && isWorkoutDate.length > 0 &&
                     <div className="container" id="calendar">
                         <div className="row">
-                            <div className="traning-table-content">
+                            <div className="traning-table-content" onClick={this.showDay}>
                                 <div className="col">
                                     <div className="m1"></div>
                                     <div className="m2"></div>

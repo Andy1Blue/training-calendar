@@ -72,20 +72,20 @@ class GoogleLogin extends Component {
             <div>
                 {gId !== null
                     ?
-                    <nav class="navbar navbar-expand-lg navbar-dark">
-                        <a class="navbar-brand" href="#home">Training calendar</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
+                    <nav className="navbar navbar-expand-lg navbar-dark">
+                        <a className="navbar-brand" href="#home">Training calendar</a>
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                            <ul class="navbar-nav">
-                                <li class="nav-item active">
+                        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <ul className="navbar-nav">
+                                <li className="nav-item active">
                                     Hello {givenName}! <img src={gImg} alt="Google Avatar" width="30px" hight="30px" />
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#calendar">Show training calendar</a>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#calendar">Show training calendar</a>
                                 </li>
-                                <li class="nav-item">
+                                <li className="nav-item">
                                     <button onClick={logout}>Logout</button>
                                 </li>
                             </ul>
