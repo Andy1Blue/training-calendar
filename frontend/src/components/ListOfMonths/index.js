@@ -48,7 +48,7 @@ class ListOfMonths extends Component {
     componentWillMount() {
         // If local storage is not null, fetch data from DB by userid
         if (localStorage.getItem('TCgId') !== null) {
-            const TCgId = localStorage.getItem('TCgId');
+            const TCgId = this.props.TCgId;
 
             fetch('http://localhost:3322/training',
                 {

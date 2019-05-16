@@ -71,9 +71,14 @@ class GoogleLogin extends Component {
         return (
             <div>
                 {gId !== null
-                    ? <div>Hello {givenName} <img src={gImg} alt="Google Avatar" width="30px" hight="30px" />!
-                    <br /><a href="#calendar">Show training calendar</a>
-                        <br /><button onClick={logout}>Logout</button></div>
+                    ? <div>
+                        <ul><li>
+                        Hello {givenName} <img src={gImg} alt="Google Avatar" width="30px" hight="30px" />!
+                        </li>
+                        <li><a href="#calendar">Show training calendar</a></li>
+                        <li><button onClick={logout}>Logout</button></li>
+                        </ul>
+                        </div>
                     : <GoogleAuth
                         clientId={config.google}
                         buttonText="Login with Google"
