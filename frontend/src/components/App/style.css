@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: gray;
+  font-size: 16px;
+}
+
 .App {
   text-align: center;
 }
@@ -21,4 +29,13 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.navbar {
+  background-color: #44020f;
+  color: white;
+}
+
+.nav-item img {
+  margin: 5px;
 }

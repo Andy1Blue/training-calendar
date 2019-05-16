@@ -71,9 +71,26 @@ class GoogleLogin extends Component {
         return (
             <div>
                 {gId !== null
-                    ? <div>Hello {givenName} <img src={gImg} alt="Google Avatar" width="30px" hight="30px" />!
-                    <br /><a href="#calendar">Show training calendar</a>
-                        <br /><button onClick={logout}>Logout</button></div>
+                    ?
+                    <nav className="navbar navbar-expand-lg navbar-dark">
+                        <a className="navbar-brand" href="#home">Training calendar</a>
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
+                        </button>
+                        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <ul className="navbar-nav">
+                                <li className="nav-item active">
+                                    Hello {givenName}! <img src={gImg} alt="Google Avatar" width="30px" hight="30px" />
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#calendar">Show training calendar</a>
+                                </li>
+                                <li className="nav-item">
+                                    <button onClick={logout}>Logout</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
                     : <GoogleAuth
                         clientId={config.google}
                         buttonText="Login with Google"
