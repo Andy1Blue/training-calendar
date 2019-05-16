@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900');
+
 body {
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: gray;
+  font-size: 16px;
 }
 
 .App {
@@ -24,17 +27,11 @@ body {
   color: white;
 }
 
-.App-header-logged {
-  background-color: #44020f;
-  min-height: 10vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 .App-link {
   color: #61dafb;
+}
+
+.navbar {
+  background-color: #44020f;
+  color: white;
 }

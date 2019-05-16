@@ -44,10 +44,9 @@ class App extends Component {
          </header>
             }
             {TCgId != null && !isFetching && <div>
-                <header className="App-header-logged">
              <div>
                 <GoogleLogin />
-                </div></header>
+                </div>
                 <ListOfMonths TCgId={TCgId} />
                 </div>
                 }
