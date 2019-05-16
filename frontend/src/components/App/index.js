@@ -1,9 +1,9 @@
 // Imports
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import './App.css';
-import ListOfMonths from './components/ListOfMonths';
-import GoogleLogin from './components/GoogleLogin';
+import './style.css';
+import ListOfMonths from '../ListOfMonths';
+import GoogleLogin from '../GoogleLogin';
 
 function App() {
   return (
