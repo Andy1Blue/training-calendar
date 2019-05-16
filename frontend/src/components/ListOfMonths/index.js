@@ -16,8 +16,9 @@ class ListOfMonths extends Component {
         TCgId: null
     }
 
+    // Show the day editing panel
     showDay(e) {
-        if(e.target.attributes.getNamedItem('id') !== null) {
+        if (e.target.attributes.getNamedItem('id') !== null) {
             console.log("Clicked" + e.target.attributes.getNamedItem('id').value);
         }
     }
