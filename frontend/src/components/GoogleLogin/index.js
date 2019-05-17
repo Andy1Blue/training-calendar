@@ -9,6 +9,7 @@ import React, { Component } from 'react';
 import './style.css';
 import GoogleAuth from 'react-google-login';
 import { config } from '../../components/Config';
+import logo from '../../assets/logo-calendar.png';
 
 class GoogleLogin extends Component {
     state = {
@@ -72,8 +73,8 @@ class GoogleLogin extends Component {
             <div>
                 {gId !== null
                     ?
-                    <nav className="navbar navbar-expand-lg navbar-dark">
-                        <a className="navbar-brand" href="#home">Training calendar</a>
+                    <nav className="navbar navbar-expand-md navbar-dark">
+                        <a className="navbar-brand" href="#home"><img className="logo" src={logo} alt="logo" /> Training calendar</a>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -86,14 +87,15 @@ class GoogleLogin extends Component {
                                     <a className="nav-link" href="#calendar">Show training calendar</a>
                                 </li>
                                 <li className="nav-item">
-                                    <button onClick={logout}>Logout</button>
+                                    <button className="logout-button" onClick={logout}>Logout</button>
                                 </li>
                             </ul>
                         </div>
                     </nav>
                     : <GoogleAuth
+                        className="google-login-button"
                         clientId={config.google}
-                        buttonText="Login with Google"
+                        buttonText="Sign in with Google"
                         onSuccess={responseGoogle}
                         onFailure={responseGoogle}
                         cookiePolicy={'single_host_origin'}

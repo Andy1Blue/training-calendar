@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import './style.css';
 import ListOfMonths from '../ListOfMonths';
 import GoogleLogin from '../GoogleLogin';
-import logo from '../../assets/logo-calendar.png'
+import logo from '../../assets/logo-calendar.png';
 
 class App extends Component {
     state = {
@@ -52,7 +52,7 @@ class App extends Component {
                 {TCgId === null && !isFetching &&
                     <header className="App-header">
                         <div>
-                            <img className="logo" src={logo} alt="logo" />
+                            <img className="logo-welcome-page" src={logo} alt="logo" />
                             <p>Training calendar</p>
                             <div>
                                 <p><GoogleLogin /></p>
