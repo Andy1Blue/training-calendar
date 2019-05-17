@@ -39,3 +39,34 @@ body {
 .nav-item img {
   margin: 5px;
 }
+
+#red-toast {
+  background-color: #44020f;
+  z-index: 999;
+  position: absolute;
+  color: white;
+  border: 1px solid black;
+  top: 40%;
+  left: 40%;
+  padding: 10px;
+  animation: show 0.1s;
+}
+
+#red-toast #red-toast-close {
+  position: absolute;
+  top: -6px;
+  right: 1px;
+  border: 0;
+  background: none;
+  color: white;
+}
+
+@keyframes show {
+  from {top:-100%;}
+  to {top: 40%;}
+}
+
+.logo-welcome-page {
+  width: 90px;
+  height: 90px;
+}
