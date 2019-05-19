@@ -62,8 +62,13 @@ body {
 }
 
 @keyframes show {
-  from {top:-100%;}
-  to {top: 40%;}
+  from {
+    top: -100%;
+  }
+
+  to {
+    top: 40%;
+  }
 }
 
 .logo-welcome-page {
