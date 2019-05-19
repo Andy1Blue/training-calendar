@@ -36,6 +36,7 @@ rect:hover:after {
 }
 
 @media only screen and (max-width: 770px) {
+
     .m1 rect,
     .m2 rect,
     .m3 rect,
