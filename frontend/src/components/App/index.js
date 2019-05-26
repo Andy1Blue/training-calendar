@@ -18,7 +18,8 @@ class App extends Component {
         isLogin: false, // Local Sotorage TCgId exist
         TCgId: null,
         showDay: false,
-        targetDay: null
+        targetDay: null,
+        refresh: false
     }
 
     // Show the day editing panel
@@ -38,7 +39,7 @@ class App extends Component {
     saveDay = () => {
         if (localStorage.getItem('TCgId') !== null && document.getElementById("workout").checked) {
             const TCgId = localStorage.getItem('TCgId');
-            const targetDateChanged = this.state.targetDay.replace(/\./g,"");
+            const targetDateChanged = this.state.targetDay.replace(/\./g, "");
 
             fetch('http://localhost:3322/training',
                 {
@@ -55,13 +56,19 @@ class App extends Component {
                 .then(response => {
 
                     this.setState({ showDay: false });
+                    this.refresh();
                     this.forceUpdate();
                 });
-            } else {
-                // TODO: Some alert to confirm deleting...
-                alert("Do you really want to delete it?");
-                // Delete logic
-            }
+        } else {
+            // TODO: Some alert to confirm deleting...
+            alert("Do you really want to delete it?");
+            // Delete logic
+        }
+    }
+
+    refresh = () => {
+        this.setState({ refresh: true });
+        this.setState({ refresh: false });
     }
 
     componentDidMount() {
@@ -75,7 +82,7 @@ class App extends Component {
     }
 
     render() {
-        const { isFetching, TCgId, showDay, targetDay } = this.state;
+        const { isFetching, TCgId, showDay, targetDay, refresh } = this.state;
         return (
             <div className="App">
                 {isFetching && <div>Loader</div>}
@@ -100,7 +107,7 @@ class App extends Component {
                             <div>
                                 <button id="red-toast-close" onClick={this.closeDay}>x</button>
                                 Day: {targetDay}
-                                <br />Workout? <input id="workout" type="checkbox"></input><br/><small>(unchecking delete this training)</small>
+                                <br />Workout? <input id="workout" type="checkbox"></input><br /><small>(unchecking delete this training)</small>
                                 <br />Comment:<br /><textarea id="description"></textarea>
                                 <br /><button onClick={this.saveDay}>Save</button>
                             </div>
@@ -108,7 +115,9 @@ class App extends Component {
                     }
 
                     <div onClick={this.showDay}>
-                        <ListOfMonths TCgId={TCgId} />
+                        {!refresh &&
+                            <ListOfMonths TCgId={TCgId} />
+                        }
                     </div>
                 </div>
                 }
