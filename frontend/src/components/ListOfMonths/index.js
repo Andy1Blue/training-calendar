@@ -14,7 +14,8 @@ class ListOfMonths extends Component {
         isFetching: true,
         isWorkoutDate: [],
         TCgId: null,
-        description: []
+        description: [],
+        idList: []
     }
 
     // Calculate days in a month
@@ -26,20 +27,22 @@ class ListOfMonths extends Component {
     addRect = (selector, day, month, year) => {
         const isWorkoutDate = this.state.isWorkoutDate;
         const description = this.state.description;
+        const idList = this.state.idList;
 
         if (isWorkoutDate.length > 0) {
             var elem = document.createElement("rect");
             // Iterating fetched data from the database
             for (let i = 0; i < isWorkoutDate.length; i++) {
+                console.log("01012019" === isWorkoutDate[i]);
                 if (day + "" + month + "" + year === isWorkoutDate[i]) {
                     elem.setAttribute("id", day + "." + month + "." + year);
                     elem.setAttribute("style", "background-color: green;");
-                    // TODO: Add the possibility of adding comment the user
-                    elem.setAttribute("comment", day + "." + month + "." + year + " [" + description[i] + "]");
+                    elem.setAttribute("comment", day + "." + month + "." + year + "[" + description[i] + "]");
+                    elem.setAttribute("trainingId", idList[i])
+                    break;
                 } else {
                     elem.setAttribute("id", day + "." + month + "." + year);
-                    // TODO: Add the possibility of adding comment the user
-                    elem.setAttribute("comment", day + "." + month + "." + year + " [No training!]");
+                    elem.setAttribute("comment", day + "." + month + "." + year + ' [No training!]');
                 }
             }
 
@@ -120,12 +123,14 @@ class ListOfMonths extends Component {
                 .then(response => {
                     let isWorkoutDate = [];
                     let description = [];
+                    let idList = [];
                     for (let i = 0; i < response.length; i++) {
                         isWorkoutDate.push(response[i]['training_date']);
                         description.push(response[i]['description']);
+                        idList.push(response[i]['id']);
                     }
                     console.log(isWorkoutDate, description);
-                    this.setState({ isWorkoutDate, isFetching: false, description });
+                    this.setState({ isWorkoutDate, isFetching: false, description, idList });
 
                     // Generate rects
                     this.generateReacts();
