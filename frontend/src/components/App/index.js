@@ -36,9 +36,32 @@ class App extends Component {
 
     // Save to db and close the day editing panel
     saveDay = () => {
-        console.log(document.getElementById("workout").checked);
+        if (localStorage.getItem('TCgId') !== null && document.getElementById("workout").checked) {
+            const TCgId = localStorage.getItem('TCgId');
+            const targetDateChanged = this.state.targetDay.replace(/\./g,"");
 
-        this.setState({ showDay: false });
+            fetch('http://localhost:3322/training',
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "userid": TCgId,
+                        "trainingdate": targetDateChanged,
+                        "description": document.getElementById("description").value,
+                        "other": ""
+                    }
+                })
+                .then(response => response.json())
+                .then(response => {
+
+                    this.setState({ showDay: false });
+                    this.forceUpdate();
+                });
+            } else {
+                // TODO: Some alert to confirm deleting...
+                alert("Do you really want to delete it?");
+                // Delete logic
+            }
     }
 
     componentDidMount() {
@@ -77,8 +100,8 @@ class App extends Component {
                             <div>
                                 <button id="red-toast-close" onClick={this.closeDay}>x</button>
                                 Day: {targetDay}
-                                <br />Workout? <input id="workout" type="checkbox"></input>
-                                <br />Comment:<br /><textarea></textarea>
+                                <br />Workout? <input id="workout" type="checkbox"></input><br/><small>(unchecking delete this training)</small>
+                                <br />Comment:<br /><textarea id="description"></textarea>
                                 <br /><button onClick={this.saveDay}>Save</button>
                             </div>
                         </div>
