@@ -13,7 +13,8 @@ class ListOfMonths extends Component {
     state = {
         isFetching: true,
         isWorkoutDate: [],
-        TCgId: null
+        TCgId: null,
+        description: []
     }
 
     // Calculate days in a month
@@ -23,20 +24,22 @@ class ListOfMonths extends Component {
 
     // Adding day rectangle
     addRect = (selector, day, month, year) => {
-        if (this.state.isWorkoutDate.length > 0) {
-            var elem = document.createElement("rect");
+        const isWorkoutDate = this.state.isWorkoutDate;
+        const description = this.state.description;
 
+        if (isWorkoutDate.length > 0) {
+            var elem = document.createElement("rect");
             // Iterating fetched data from the database
-            for (var i = 0; i < this.state.isWorkoutDate.length; i++) {
-                if (day + "" + month + "" + year === this.state.isWorkoutDate[i]) {
+            for (let i = 0; i < isWorkoutDate.length; i++) {
+                if (day + "" + month + "" + year === isWorkoutDate[i]) {
                     elem.setAttribute("id", day + "." + month + "." + year);
                     elem.setAttribute("style", "background-color: green;");
                     // TODO: Add the possibility of adding comment the user
-                    elem.setAttribute("comment", day + "." + month + "." + year + " - workout!");
+                    elem.setAttribute("comment", day + "." + month + "." + year + " [" + description[i] + "]");
                 } else {
                     elem.setAttribute("id", day + "." + month + "." + year);
                     // TODO: Add the possibility of adding comment the user
-                    elem.setAttribute("comment", day + "." + month + "." + year + " - no workout");
+                    elem.setAttribute("comment", day + "." + month + "." + year + " [No training!]");
                 }
             }
 
@@ -116,11 +119,13 @@ class ListOfMonths extends Component {
                 .then(response => response.json())
                 .then(response => {
                     let isWorkoutDate = [];
+                    let description = [];
                     for (let i = 0; i < response.length; i++) {
-                        isWorkoutDate.push(response[i].training_date);
+                        isWorkoutDate.push(response[i]['training_date']);
+                        description.push(response[i]['description']);
                     }
-                    console.log(isWorkoutDate);
-                    this.setState({ isWorkoutDate, isFetching: false });
+                    console.log(isWorkoutDate, description);
+                    this.setState({ isWorkoutDate, isFetching: false, description });
 
                     // Generate rects
                     this.generateReacts();
