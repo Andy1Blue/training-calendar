@@ -34,6 +34,13 @@ class App extends Component {
         this.setState({ showDay: false });
     }
 
+    // Save to db and close the day editing panel
+    saveDay = () => {
+        console.log(document.getElementById("workout").checked);
+
+        this.setState({ showDay: false });
+    }
+
     componentDidMount() {
         // If local storage is not null
         if (localStorage.getItem('TCgId') !== null) {
@@ -70,9 +77,9 @@ class App extends Component {
                             <div>
                                 <button id="red-toast-close" onClick={this.closeDay}>x</button>
                                 Day: {targetDay}
-                                <br />Workout? <input type="checkbox"></input>
+                                <br />Workout? <input id="workout" type="checkbox"></input>
                                 <br />Comment:<br /><textarea></textarea>
-                                <br /><button>Save</button>
+                                <br /><button onClick={this.saveDay}>Save</button>
                             </div>
                         </div>
                     }
