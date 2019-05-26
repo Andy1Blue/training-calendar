@@ -19,14 +19,18 @@ class App extends Component {
         TCgId: null,
         showDay: false,
         targetDay: null,
-        refresh: false
+        refresh: false,
+        targetDayTId: null
     }
 
     // Show the day editing panel
     showDay = (e) => {
         if (e.target.attributes.getNamedItem('id') !== null) {
-            console.log("Clicked" + e.target.attributes.getNamedItem('id').value);
-            this.setState({ showDay: true, targetDay: e.target.attributes.getNamedItem('id').value });
+            if (e.target.attributes.getNamedItem('trainingid')) {
+                this.setState({ showDay: true, targetDay: e.target.attributes.getNamedItem('id').value, targetDayTId: e.target.attributes.getNamedItem('trainingid').value });
+            } else {
+                this.setState({ showDay: true, targetDay: e.target.attributes.getNamedItem('id').value });
+            }
         }
     }
 
@@ -60,9 +64,28 @@ class App extends Component {
                     this.forceUpdate();
                 });
         } else {
-            // TODO: Some alert to confirm deleting...
-            alert("Do you really want to delete it?");
-            // Delete logic
+            // TODO: Add alert to confirm deleting...
+
+            const TCgId = localStorage.getItem('TCgId');
+            const targetDateChanged = this.state.targetDay.replace(/\./g, "");
+            const targetDayTId = this.state.targetDayTId;
+
+            fetch('http://localhost:3322/training',
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "userid": TCgId,
+                        "trainingdate": targetDateChanged,
+                        "idtodelete": targetDayTId
+                    }
+                })
+                .then(response => response.json())
+                .then(response => {
+                    this.setState({ showDay: false });
+                    this.refresh();
+                    this.forceUpdate();
+                });
         }
     }
 
