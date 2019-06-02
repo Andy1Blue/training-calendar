@@ -34,10 +34,14 @@ body {
 .navbar {
   background-color: #44020f;
   color: white;
+  height: 5vh;
+  font-size: 10px;
 }
 
 .nav-item img {
   margin: 5px;
+  width: 20px;
+  height: 20px;
 }
 
 #red-toast {
