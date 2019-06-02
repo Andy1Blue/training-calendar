@@ -37,8 +37,8 @@ class ListOfMonths extends Component {
                 if (day + "" + month + "" + year === isWorkoutDate[i]) {
                     elem.setAttribute("id", day + "." + month + "." + year);
                     elem.setAttribute("style", "background-color: green;");
-                    elem.setAttribute("comment", day + "." + month + "." + year + "[" + description[i] + "]");
                     elem.setAttribute("trainingId", idList[i])
+                    elem.setAttribute("comment", day + "." + month + "." + year + " [" + description[i] + "]");
                     break;
                 } else {
                     elem.setAttribute("id", day + "." + month + "." + year);
