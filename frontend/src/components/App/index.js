@@ -41,7 +41,7 @@ class App extends Component {
 
     // Save to db and close the day editing panel
     saveDay = () => {
-        if (localStorage.getItem('TCgId') !== null && document.getElementById("workout").checked) {
+        if (localStorage.getItem('TCgId') !== null) {
             const TCgId = localStorage.getItem('TCgId');
             const targetDateChanged = this.state.targetDay.replace(/\./g, "");
 
@@ -63,30 +63,32 @@ class App extends Component {
                     this.refresh();
                     this.forceUpdate();
                 });
-        } else {
-            // TODO: Add alert to confirm deleting...
-
-            const TCgId = localStorage.getItem('TCgId');
-            const targetDateChanged = this.state.targetDay.replace(/\./g, "");
-            const targetDayTId = this.state.targetDayTId;
-
-            fetch('http://localhost:3322/training',
-                {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "userid": TCgId,
-                        "trainingdate": targetDateChanged,
-                        "idtodelete": targetDayTId
-                    }
-                })
-                .then(response => response.json())
-                .then(response => {
-                    this.setState({ showDay: false });
-                    this.refresh();
-                    this.forceUpdate();
-                });
         }
+    }
+
+    // Delete to db and close the day editing panel
+    deleteDay = () => {
+        // TODO: Add alert to confirm deleting...
+        const TCgId = localStorage.getItem('TCgId');
+        const targetDateChanged = this.state.targetDay.replace(/\./g, "");
+        const targetDayTId = this.state.targetDayTId;
+
+        fetch('http://localhost:3322/training',
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "userid": TCgId,
+                    "trainingdate": targetDateChanged,
+                    "idtodelete": targetDayTId
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                this.setState({ showDay: false });
+                this.refresh();
+                this.forceUpdate();
+            });
     }
 
     refresh = () => {
@@ -130,9 +132,8 @@ class App extends Component {
                             <div>
                                 <button id="red-toast-close" onClick={this.closeDay}>x</button>
                                 Day: {targetDay}
-                                <br />Workout? <input id="workout" type="checkbox"></input><br /><small>(unchecking delete this training)</small>
                                 <br />Comment:<br /><textarea id="description"></textarea>
-                                <br /><button onClick={this.saveDay}>Save</button>
+                                <br /><button onClick={this.saveDay}>Save</button> <button onClick={this.deleteDay}>Delete</button>
                             </div>
                         </div>
                     }
