@@ -34,8 +34,8 @@ body {
 .navbar {
   background-color: #44020f;
   color: white;
-  height: 5vh;
-  font-size: 10px;
+  min-height: 5vh;
+  font-size: 14px;
 }
 
 .nav-item img {
@@ -50,10 +50,11 @@ body {
   position: absolute;
   color: white;
   border: 1px solid black;
-  top: 40%;
+  top: 30%;
   left: 40%;
   padding: 10px;
   animation: show 0.5s;
+  font-size: 22px;
 }
 
 #red-toast #red-toast-close {

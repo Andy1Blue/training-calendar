@@ -42,7 +42,7 @@ class ListOfMonths extends Component {
                     break;
                 } else {
                     elem.setAttribute("id", day + "." + month + "." + year);
-                    elem.setAttribute("comment", day + "." + month + "." + year + ' [No training!]');
+                    elem.setAttribute("comment", day + "." + month + "." + year + " [No training!]");
                 }
             }
 
