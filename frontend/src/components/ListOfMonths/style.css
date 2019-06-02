@@ -4,13 +4,14 @@
 }
 
 rect:hover:after {
+    font-family: 'Roboto', sans-serif;
     z-index: 999;
     content: attr(comment);
     position: absolute;
     width: 150px;
     margin: 20px;
-    padding: 2px;
-    font-size: 10px;
+    padding: 5px;
+    font-size: 12px;
     border: 1px solid black;
     background: white;
     color: black;
@@ -29,9 +30,9 @@ rect:hover:after {
 .m11 rect,
 .m12 rect {
     background-color: rgb(202, 206, 247);
-    height: 15px;
-    width: 15px;
-    margin: 3px;
+    height: 21px;
+    width: 21px;
+    margin: 4px;
     float: left;
 }
 
