@@ -9,5 +9,5 @@ Technologies and libraries
 ----
 Libraries and technologies used in the project:
 - Node.js
-- [React.js](https://facebook.github.io/react/) / [Vue.js](https://vuejs.org) (two versions)
+- [React.js](https://facebook.github.io/react/)
 - [Bootstrap](https://v4-alpha.getbootstrap.com)
