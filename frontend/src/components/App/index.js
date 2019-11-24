@@ -26,8 +26,8 @@ class App extends Component {
     // Show the day editing panel
     showDay = (e) => {
         if (e.target.attributes.getNamedItem('id') !== null) {
-            if (e.target.attributes.getNamedItem('trainingid')) {
-                this.setState({ showDay: true, targetDay: e.target.attributes.getNamedItem('id').value, targetDayTId: e.target.attributes.getNamedItem('trainingid').value });
+            if (e.target.attributes.getNamedItem('trainingId')) {
+                this.setState({ showDay: true, targetDay: e.target.attributes.getNamedItem('id').value, targetDayTId: e.target.attributes.getNamedItem('trainingId').value });
             } else {
                 this.setState({ showDay: true, targetDay: e.target.attributes.getNamedItem('id').value });
             }
@@ -44,6 +44,9 @@ class App extends Component {
         if (localStorage.getItem('TCgId') !== null) {
             const TCgId = localStorage.getItem('TCgId');
             const targetDateChanged = this.state.targetDay.replace(/\./g, "");
+            const descriptionValue = document.getElementById("description").value;
+
+            console.log(TCgId, targetDateChanged, descriptionValue)
 
             fetch('http://localhost:3322/training',
                 {
@@ -52,13 +55,12 @@ class App extends Component {
                         "Content-Type": "application/json",
                         "userid": TCgId,
                         "trainingdate": targetDateChanged,
-                        "description": document.getElementById("description").value,
+                        "description": descriptionValue,
                         "other": ""
                     }
                 })
                 .then(response => response.json())
                 .then(response => {
-
                     this.setState({ showDay: false });
                     this.refresh();
                     this.forceUpdate();
@@ -89,6 +91,11 @@ class App extends Component {
                 this.refresh();
                 this.forceUpdate();
             });
+    }
+
+    addToDescription = (e) => {
+        const target = e.target;
+        document.getElementById("description").value += target.innerText;
     }
 
     refresh = () => {
@@ -122,7 +129,7 @@ class App extends Component {
                         </div>
                     </header>
                 }
-                {TCgId != null && !isFetching && <div>
+                {TCgId !== null && !isFetching && <div>
                     <div>
                         <GoogleLogin />
                     </div>
@@ -132,6 +139,13 @@ class App extends Component {
                             <div>
                                 <button id="red-toast-close" onClick={this.closeDay}>x</button>
                                 Day: {targetDay}
+                                <br /><small>Quick add:<br />
+                                    <span onClick={this.addToDescription}>RUN </span>
+                                    <span onClick={this.addToDescription}>WALK </span>
+                                    <span onClick={this.addToDescription}>BIKE </span>
+                                    <span onClick={this.addToDescription}>GYM </span>
+                                    <span onClick={this.addToDescription}>SPINNING </span>
+                                </small>
                                 <br />Comment:<br /><textarea id="description"></textarea>
                                 <br /><button onClick={this.saveDay}>Save</button> <button onClick={this.deleteDay}>Delete</button>
                             </div>

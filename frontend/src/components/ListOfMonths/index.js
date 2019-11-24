@@ -15,25 +15,28 @@ class ListOfMonths extends Component {
         isWorkoutDate: [],
         TCgId: null,
         description: [],
-        idList: []
+        idList: [],
+        actualYear: 2019,
     }
 
-    // Calculate days in a month
+    actualYear = () => {
+        return new Date().getFullYear();
+    }
+
     daysInMonth = (month, year) => {
         return new Date(year, month, 0).getDate();
     };
 
-    // Adding day rectangle
     addRect = (selector, day, month, year) => {
         const isWorkoutDate = this.state.isWorkoutDate;
         const description = this.state.description;
         const idList = this.state.idList;
 
-        if (isWorkoutDate.length > 0) {
+        if (isWorkoutDate) {
             var elem = document.createElement("rect");
             // Iterating fetched data from the database
-            for (let i = 0; i < isWorkoutDate.length; i++) {
-                console.log("01012019" === isWorkoutDate[i]);
+            const workoutDateLength = isWorkoutDate.length > 0 ? isWorkoutDate.length : 10;
+            for (let i = 0; i < workoutDateLength; i++) {
                 if (day + "" + month + "" + year === isWorkoutDate[i]) {
                     elem.setAttribute("id", day + "." + month + "." + year);
                     elem.setAttribute("style", "background-color: green;");
@@ -53,10 +56,11 @@ class ListOfMonths extends Component {
     };
 
     generateReacts = () => {
-        // TODO: Add the possibility of selecting the year by the user
-        let actualYear = 2019;
+        const isWorkoutDate = this.state.isWorkoutDate;
+        let actualYear = this.state.actualYear;
+
         // If isWorkoutDate have more than 0 elements, create days rectangles
-        if (this.state.isWorkoutDate.length > 0) {
+        if (isWorkoutDate) {
             for (let i = 1; i <= this.daysInMonth(1, actualYear); i++) {
                 this.addRect("m1", String("00" + i).slice(-2), "01", actualYear);
             }
@@ -107,6 +111,8 @@ class ListOfMonths extends Component {
     }
 
     componentWillMount() {
+        this.setState({ actualYear: this.actualYear() });
+
         // If local storage is not null, fetch data from DB by userid
         if (localStorage.getItem('TCgId') !== null) {
             const TCgId = this.props.TCgId;
@@ -142,13 +148,14 @@ class ListOfMonths extends Component {
     }
 
     render() {
-        const { isFetching, isWorkoutDate } = this.state;
+        const { isFetching, isWorkoutDate, actualYear } = this.state;
         return (
             <div className="App-matches">
                 {isFetching && <div><Loader /></div>}
 
-                {!isFetching && isWorkoutDate.length > 0 &&
+                {!isFetching && isWorkoutDate &&
                     <div className="container" id="calendar">
+                        <div><h2>{actualYear}</h2></div>
                         <div className="row">
                             <div className="traning-table-content">
                                 <div className="col">
