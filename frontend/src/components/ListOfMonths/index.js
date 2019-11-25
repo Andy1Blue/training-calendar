@@ -11,16 +11,91 @@ import Loader from '../Loader';
 
 class ListOfMonths extends Component {
     state = {
+        refresh: false,
         isFetching: true,
         isWorkoutDate: [],
         TCgId: null,
         description: [],
         idList: [],
-        actualYear: 2019,
+        actualYear: null,
+    }
+
+    refresh = () => {
+        console.log('ref')
+        this.setState({ isFetching: true });
+        this.setState({ isFetching: false });
     }
 
     actualYear = () => {
         return new Date().getFullYear();
+    }
+
+    addYear = () => {
+        let a = this.state.actualYear;
+        this.setState({ actualYear: a + 1 });
+
+        const m1 = document.getElementById("root").querySelector(".App .App-matches .container .m1");
+        m1.innerHTML='';
+        const m2 = document.getElementById("root").querySelector(".App .App-matches .container .m2");
+        m2.innerHTML='';
+        const m3 = document.getElementById("root").querySelector(".App .App-matches .container .m3");
+        m3.innerHTML='';
+        const m4 = document.getElementById("root").querySelector(".App .App-matches .container .m4");
+        m4.innerHTML='';
+        const m5 = document.getElementById("root").querySelector(".App .App-matches .container .m5");
+        m5.innerHTML='';
+        const m6 = document.getElementById("root").querySelector(".App .App-matches .container .m6");
+        m6.innerHTML='';
+        const m7 = document.getElementById("root").querySelector(".App .App-matches .container .m7");
+        m7.innerHTML='';
+        const m8 = document.getElementById("root").querySelector(".App .App-matches .container .m8");
+        m8.innerHTML='';
+        const m9 = document.getElementById("root").querySelector(".App .App-matches .container .m9");
+        m9.innerHTML='';
+        const m10 = document.getElementById("root").querySelector(".App .App-matches .container .m10");
+        m10.innerHTML='';
+        const m11 = document.getElementById("root").querySelector(".App .App-matches .container .m11");
+        m11.innerHTML='';
+        const m12 = document.getElementById("root").querySelector(".App .App-matches .container .m12");
+        m12.innerHTML='';
+
+        this.fetchData();
+        this.refresh();
+        this.forceUpdate();
+    }
+
+    subtractYear = () => {
+        let a = this.state.actualYear;
+        this.setState({ actualYear: a - 1 });
+
+        const m1 = document.getElementById("root").querySelector(".App .App-matches .container .m1");
+        m1.innerHTML='';
+        const m2 = document.getElementById("root").querySelector(".App .App-matches .container .m2");
+        m2.innerHTML='';
+        const m3 = document.getElementById("root").querySelector(".App .App-matches .container .m3");
+        m3.innerHTML='';
+        const m4 = document.getElementById("root").querySelector(".App .App-matches .container .m4");
+        m4.innerHTML='';
+        const m5 = document.getElementById("root").querySelector(".App .App-matches .container .m5");
+        m5.innerHTML='';
+        const m6 = document.getElementById("root").querySelector(".App .App-matches .container .m6");
+        m6.innerHTML='';
+        const m7 = document.getElementById("root").querySelector(".App .App-matches .container .m7");
+        m7.innerHTML='';
+        const m8 = document.getElementById("root").querySelector(".App .App-matches .container .m8");
+        m8.innerHTML='';
+        const m9 = document.getElementById("root").querySelector(".App .App-matches .container .m9");
+        m9.innerHTML='';
+        const m10 = document.getElementById("root").querySelector(".App .App-matches .container .m10");
+        m10.innerHTML='';
+        const m11 = document.getElementById("root").querySelector(".App .App-matches .container .m11");
+        m11.innerHTML='';
+        const m12 = document.getElementById("root").querySelector(".App .App-matches .container .m12");
+        m12.innerHTML='';
+
+        this.fetchData();
+        this.refresh();
+        this.forceUpdate();
     }
 
     daysInMonth = (month, year) => {
@@ -54,6 +129,40 @@ class ListOfMonths extends Component {
             m.appendChild(elem);
         }
     };
+
+fetchData = () => {
+    if (localStorage.getItem('TCgId') !== null) {
+        const TCgId = this.props.TCgId;
+
+        fetch('http://localhost:3322/training',
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "userid": TCgId
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                let isWorkoutDate = [];
+                let description = [];
+                let idList = [];
+                for (let i = 0; i < response.length; i++) {
+                    isWorkoutDate.push(response[i]['training_date']);
+                    description.push(response[i]['description']);
+                    idList.push(response[i]['id']);
+                }
+                console.log(isWorkoutDate, description);
+                this.setState({ isWorkoutDate, isFetching: false, description, idList });
+
+                // Generate rects
+                this.generateReacts();
+            });
+    } else {
+        // If is null return empty data
+        this.setState({ isWorkoutDate: [], isFetching: false })
+    }
+}
 
     generateReacts = () => {
         const isWorkoutDate = this.state.isWorkoutDate;
@@ -114,37 +223,7 @@ class ListOfMonths extends Component {
         this.setState({ actualYear: this.actualYear() });
 
         // If local storage is not null, fetch data from DB by userid
-        if (localStorage.getItem('TCgId') !== null) {
-            const TCgId = this.props.TCgId;
-
-            fetch('http://localhost:3322/training',
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "userid": TCgId
-                    }
-                })
-                .then(response => response.json())
-                .then(response => {
-                    let isWorkoutDate = [];
-                    let description = [];
-                    let idList = [];
-                    for (let i = 0; i < response.length; i++) {
-                        isWorkoutDate.push(response[i]['training_date']);
-                        description.push(response[i]['description']);
-                        idList.push(response[i]['id']);
-                    }
-                    console.log(isWorkoutDate, description);
-                    this.setState({ isWorkoutDate, isFetching: false, description, idList });
-
-                    // Generate rects
-                    this.generateReacts();
-                });
-        } else {
-            // If is null return empty data
-            this.setState({ isWorkoutDate: [], isFetching: false })
-        }
+        this.fetchData();
     }
 
     render() {
@@ -155,7 +234,7 @@ class ListOfMonths extends Component {
 
                 {!isFetching && isWorkoutDate &&
                     <div className="container" id="calendar">
-                        <div><h2>{actualYear}</h2></div>
+                        <div><button onClick={this.subtractYear}>-</button> <h2>{actualYear}</h2> <button onClick={this.addYear}>+</button></div>
                         <div className="row">
                             <div className="traning-table-content">
                                 <div className="col">
