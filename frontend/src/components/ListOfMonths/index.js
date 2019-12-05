@@ -234,7 +234,7 @@ fetchData = () => {
 
                 {!isFetching && isWorkoutDate &&
                     <div className="container" id="calendar">
-                        <div><button onClick={this.subtractYear}>-</button> <h2>{actualYear}</h2> <button onClick={this.addYear}>+</button></div>
+                        <div className="calendar-year"><button onClick={this.subtractYear}>&#10148;</button> <h2>{actualYear}</h2> <button onClick={this.addYear}>&#10148;</button></div>
                         <div className="row">
                             <div className="traning-table-content">
                                 <div className="col">

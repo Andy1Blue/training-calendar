@@ -3,6 +3,34 @@
     margin: 0 auto;
 }
 
+.calendar-year {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.calendar-year button:nth-child(1) {
+    border: none;
+    background-color: transparent;
+    font-size: 2vh;
+    transform: rotate(180deg);
+    color: rgb(226, 226, 226);
+}
+
+.calendar-year h2  {
+    margin-top: 5px;
+    color: rgb(226, 226, 226);
+}
+
+.calendar-year button:nth-child(3) {
+    border: none;
+    background-color: transparent;
+    font-size: 2vh;
+    margin-bottom:2px;
+    color: rgb(226, 226, 226);
+}
+
 rect:hover:after {
     font-family: 'Roboto', sans-serif;
     z-index: 999;
@@ -36,7 +64,7 @@ rect:hover:after {
     float: left;
 }
 
-@media only screen and (max-width: 770px) {
+@media only screen and (max-width: 1000px) {
 
     .m1 rect,
     .m2 rect,
