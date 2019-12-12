@@ -12,7 +12,7 @@ import ListOfMonths from '../ListOfMonths';
 import GoogleLogin from '../GoogleLogin';
 import logo from '../../assets/logo-calendar.png';
 import Loader from '../Loader';
-
+import { config } from '../Config';
 class App extends Component {
     state = {
         isFetching: false,
@@ -23,9 +23,13 @@ class App extends Component {
         refresh: false,
         targetDayTId: null,
         dayObject: {
-            description: null
+            description: null,
+            distance: null,
+            calories: null,
+            time: null,
         },
-        showDayLoader: true
+        showDayLoader: true,
+        isDescriptionInactive: true,
     }
 
     // Show the day editing panel
@@ -34,7 +38,14 @@ class App extends Component {
             if (e.target.attributes.getNamedItem('trainingId')) {
                 this.isDay(e.target.attributes.getNamedItem('id').value, e.target.attributes.getNamedItem('trainingId').value);
             } else {
-                this.setState({ showDayLoader: false, dayObject: { description: null }, showDay: true, targetDay: e.target.attributes.getNamedItem('id').value });
+                this.setState({
+                    showDayLoader: false, dayObject: {
+                        description: null,
+                        distance: null,
+                        calories: null,
+                        time: null,
+                    }, showDay: true, targetDay: e.target.attributes.getNamedItem('id').value
+                });
             }
         }
     }
@@ -50,7 +61,7 @@ class App extends Component {
             const TCgId = localStorage.getItem('TCgId');
             const targetDateChanged = day.replace(/\./g, "");
 
-            fetch('http://localhost:3322/training',
+            fetch(config.domain + ':3322/training',
                 {
                     method: "GET",
                     headers: {
@@ -61,9 +72,22 @@ class App extends Component {
                 })
                 .then(response => response.json())
                 .then(response => {
-                    this.setState({ dayObject: { description: response.description }, showDay: true, targetDay: day, targetDayTId: trainingId, showDayLoader: false });
+                    this.setState({
+                        dayObject: {
+                            description: response.description, distance: response.distance,
+                            calories: response.calories,
+                            time: response.time,
+                        }, showDay: true, targetDay: day, targetDayTId: trainingId, showDayLoader: false
+                    });
                 }).catch(e => {
-                    this.setState({ dayObject: { description: null }, showDay: false, targetDay: null, targetDayTId: null });
+                    this.setState({
+                        dayObject: {
+                            description: null,
+                            distance: null,
+                            calories: null,
+                            time: null,
+                        }, showDay: false, targetDay: null, targetDayTId: null
+                    });
                 });
         }
     }
@@ -74,10 +98,13 @@ class App extends Component {
             const TCgId = localStorage.getItem('TCgId');
             const targetDateChanged = this.state.targetDay.replace(/\./g, "");
             const descriptionValue = document.getElementById("description").value;
+            const distanceValue = document.getElementById("distance").value;
+            const caloriesValue = document.getElementById("calories").value;
+            const timeValue = document.getElementById("time").value;
 
             console.log(TCgId, targetDateChanged, descriptionValue)
 
-            fetch('http://localhost:3322/training',
+            fetch(config.domain + ':3322/training',
                 {
                     method: "POST",
                     headers: {
@@ -85,6 +112,9 @@ class App extends Component {
                         "userid": TCgId,
                         "trainingdate": targetDateChanged,
                         "description": descriptionValue,
+                        "distance": distanceValue,
+                        "calories": caloriesValue,
+                        "time": timeValue,
                         "other": ""
                     }
                 })
@@ -102,10 +132,11 @@ class App extends Component {
             const TCgId = localStorage.getItem('TCgId');
             const targetDateChanged = this.state.targetDay.replace(/\./g, "");
             const descriptionValue = document.getElementById("description").value;
+            const distanceValue = document.getElementById("distance").value;
+            const caloriesValue = document.getElementById("calories").value;
+            const timeValue = document.getElementById("time").value;
 
-            console.log(TCgId, targetDateChanged, descriptionValue)
-
-            fetch('http://localhost:3322/training',
+            fetch(config.domain + ':3322/training',
                 {
                     method: "PUT",
                     headers: {
@@ -113,6 +144,9 @@ class App extends Component {
                         "userid": TCgId,
                         "trainingdate": targetDateChanged,
                         "description": descriptionValue,
+                        "distance": distanceValue,
+                        "calories": caloriesValue,
+                        "time": timeValue,
                         "other": ""
                     }
                 })
@@ -132,7 +166,7 @@ class App extends Component {
         const targetDateChanged = this.state.targetDay.replace(/\./g, "");
         const targetDayTId = this.state.targetDayTId;
 
-        fetch('http://localhost:3322/training',
+        fetch(config.domain + ':3322/training',
             {
                 method: "DELETE",
                 headers: {
@@ -150,9 +184,18 @@ class App extends Component {
             });
     }
 
+    checkTextareaIsEmpty = () => {
+        let check = 
+        document.getElementById("description").value === '' || 
+        document.getElementById("description").value === ' ' || 
+        document.getElementById("description").value === null;
+        this.setState({ isDescriptionInactive: check });
+    }
+
     addToDescription = (e) => {
         const target = e.target;
         document.getElementById("description").value += target.innerText;
+        this.checkTextareaIsEmpty();
     }
 
     refresh = () => {
@@ -161,6 +204,8 @@ class App extends Component {
     }
 
     componentDidMount() {
+        console.log(config.domain)
+
         // If local storage is not null
         if (localStorage.getItem('TCgId') !== null) {
             const TCgId = localStorage.getItem('TCgId');
@@ -171,7 +216,7 @@ class App extends Component {
     }
 
     render() {
-        const { isFetching, TCgId, showDay, targetDay, refresh, dayObject, showDayLoader } = this.state;
+        const { isFetching, TCgId, showDay, targetDay, refresh, dayObject, showDayLoader, isDescriptionInactive } = this.state;
         return (
             <div className="App">
                 {isFetching && <div><Loader /></div>}
@@ -198,6 +243,42 @@ class App extends Component {
                                 {!showDayLoader &&
                                     <div>
                                         Day: {targetDay}
+
+                                        <br />
+
+                                        &#128336;
+                                        
+                                            <input type="number" id="time" class="input-number" placeholder="min" onChange={e => { this.setState({ dayObject: { 
+                                                description: dayObject.description,
+                                             time: e.target.value,
+                                             calories: dayObject.calories,
+                                             distance: dayObject.distance,
+                                             } })
+                                             this.checkTextareaIsEmpty() 
+                                             }} value={dayObject.time === 0 ? '' : dayObject.time}></input>
+
+                                        &#128293;
+
+                                        <input type="number" id="calories" class="input-number" placeholder="kcal" onChange={e => { this.setState({ dayObject: { 
+                                                description: dayObject.description,
+                                             time: dayObject.time,
+                                             calories: e.target.value,
+                                             distance: dayObject.distance,
+                                             } }) 
+                                             this.checkTextareaIsEmpty() 
+                                             }} value={dayObject.calories === 0 ? '' : dayObject.calories}></input>
+
+                                        &#128099;
+
+                                        <input type="number" id="distance" class="input-number" placeholder="km" onChange={e => { this.setState({ dayObject: { 
+                                                description: dayObject.description,
+                                             time: dayObject.time,
+                                             calories: dayObject.calories,
+                                             distance: e.target.value,
+                                             } })
+                                             this.checkTextareaIsEmpty() 
+                                             }} value={dayObject.distance === 0 ? '' : dayObject.distance}></input>
+
                                         <br /><small>Quick add:<br />
                                             <span onClick={this.addToDescription}>RUN </span>
                                             <span onClick={this.addToDescription}>WALK </span>
@@ -208,13 +289,16 @@ class App extends Component {
 
                                         <br />Comment:<br />
 
-                                        {dayObject.description && <textarea id="description" onChange={e => this.setState({ description: e.target.value })}>{dayObject.description}</textarea>}
-                                        {!dayObject.description && <textarea id="description"></textarea>}
+                                        {dayObject.description && <textarea id="description" onChange={e => { this.setState({ description: e.target.value }); this.checkTextareaIsEmpty() }}>{dayObject.description}</textarea>}
+                                        {!dayObject.description && <textarea onChange={this.checkTextareaIsEmpty} id="description"></textarea>}
 
                                         <br />
-                                        {!dayObject.description && <button onClick={this.saveDay}>Save</button>}
-                                        {dayObject.description && <button onClick={this.updateDay}>Update</button>}
-                                        {dayObject.description && <button onClick={this.deleteDay}>Delete</button>}
+                                        {!dayObject.description && <button disabled={isDescriptionInactive} onClick={this.saveDay}>Save</button>}
+                                        {dayObject.description && <button disabled={isDescriptionInactive} onClick={this.updateDay}>Update</button>}
+                                        {dayObject.description && <button disabled={isDescriptionInactive} onClick={this.deleteDay}>Delete</button>}
+
+                                        <br />
+                                        {isDescriptionInactive && <span className="alert">Field cannot be empty!</span>}
                                     </div>
                                 }
                                 {showDayLoader &&

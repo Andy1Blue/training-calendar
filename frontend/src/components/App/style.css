@@ -80,3 +80,11 @@ body {
   width: 90px;
   height: 90px;
 }
+
+.alert {
+  color: rgb(255, 154, 154);
+}
+
+.input-number{
+  width:80px;
+}

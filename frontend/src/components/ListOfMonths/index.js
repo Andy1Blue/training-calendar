@@ -8,7 +8,7 @@
 import React, { Component } from 'react';
 import './style.css';
 import Loader from '../Loader';
-
+import {config} from '../Config';
 class ListOfMonths extends Component {
     state = {
         refresh: false,
@@ -134,7 +134,7 @@ fetchData = () => {
     if (localStorage.getItem('TCgId') !== null) {
         const TCgId = this.props.TCgId;
 
-        fetch('http://localhost:3322/training',
+        fetch(config.domain+':3322/training',
             {
                 method: "GET",
                 headers: {
